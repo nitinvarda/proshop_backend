@@ -4,10 +4,11 @@ dotenv.config()
 
 console.log(process.env.MONGO_URI);
 
+var gfs;
 const connectDB = async () => {
     try {
         var conn = await mongoose.connect(process.env.MONGO_URI);
-
+       
         console.log(`MongoDB Connected:${conn.connection.host}`)
     }
     catch (error) {
@@ -21,6 +22,5 @@ const connectDB = async () => {
 
 
 var db = await Promise.resolve(connectDB());
-
 
 export default db;
