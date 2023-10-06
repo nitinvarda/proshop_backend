@@ -18,7 +18,7 @@ var app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db,{bucketName:'proshop'});
+const gfs = new mongoose.mongo.GridFSBucket(db,{bucketName:'proshop'});
 
 
 dotenv.config()
@@ -33,9 +33,8 @@ app.use('/', indexRouter);
 app.use('/api/products',productRouter)
 app.use('/users', usersRouter);
 app.use('/api/image/:filename', function(req, res, next) {
-    
+ 
     gfs.find({ filename: req.params.filename }).toArray((err, file) => {
-        console.log(file[0].name)
         if(err){
             console.log(err);
         }
@@ -47,7 +46,7 @@ app.use('/api/image/:filename', function(req, res, next) {
         }
 
         // creating stream to read the image which is stored in chunks 
-        const readStream = bucket.openDownloadStreamByName(file[0].filename);
+        const readStream = gfs.openDownloadStreamByName(file[0].filename);
         // this is will display the image directly
         readStream.pipe(res);
     })

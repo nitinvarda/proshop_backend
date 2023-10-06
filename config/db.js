@@ -7,7 +7,11 @@ console.log(process.env.MONGO_URI);
 var gfs;
 const connectDB = async () => {
     try {
-        var conn = await mongoose.connect(process.env.MONGO_URI);
+        var conn = await mongoose.connect(process.env.MONGO_URI,{
+            useUnifiedTopology: true,
+            useNewUrlParser: true,
+            useCreateIndex: true
+        });
        
         console.log(`MongoDB Connected:${conn.connection.host}`)
     }
