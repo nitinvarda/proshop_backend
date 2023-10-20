@@ -15,6 +15,8 @@ import mongoose from 'mongoose';
 
 var app = express();
 
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -24,6 +26,7 @@ const gfs = new mongoose.mongo.GridFSBucket(db,{bucketName:'proshop'});
 dotenv.config()
 
 app.use(logger('dev'));
+// Body parser middleware
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -31,7 +34,7 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/products',productRouter)
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
 app.use('/api/image/:filename', function(req, res, next) {
  
     gfs.find({ filename: req.params.filename }).toArray((err, file) => {
