@@ -7,6 +7,7 @@ import logger from 'morgan';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/userRoutes.js';
 import productRouter from './routes/productRoutes.js';
+import orderRouter from './routes/orderRoutes.js';
 // import imagesRouter from './routes/images.js';
 import dotenv from 'dotenv';
 import db from './config/db.js';
@@ -35,6 +36,7 @@ app.use(express.static(join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/products',productRouter)
 app.use('/api/users', usersRouter);
+app.use('/api/orders',orderRouter);
 app.use('/api/image/:filename', function(req, res, next) {
  
     gfs.find({ filename: req.params.filename }).toArray((err, file) => {
