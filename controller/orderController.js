@@ -38,10 +38,11 @@ const addOrderItems = asyncHandler( async function(req, res, next) {
                 totalPrice
             })
             const createOrder = await order.save();
-            res.satus(201).json(createOrder);
+            res.status(201).json(createOrder);
         }
     } catch (error) {
-        
+        console.log({error})
+        throw new Error(error);
     }
    
 })
@@ -56,7 +57,7 @@ const getMyOrders = asyncHandler( async function(req, res, next) {
     const orders = await Order.find({user:req.user._id});
     res.status(200).json(orders);
    } catch (error) {
-    
+    throw new Error(error);
    }
     
  })
@@ -77,7 +78,7 @@ const getOrderById = asyncHandler( async function(req, res, next) {
         throw new Error("Order not found");
     }
    } catch (error) {
-    
+    throw new Error(error);
    }
    
 })
