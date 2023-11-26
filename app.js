@@ -63,30 +63,7 @@ app.use('/api/image/:filename', function(req, res, next) {
    
 });
 
-app.post('/payment-sheet', async (req, res) => {
-    // Use an existing Customer ID if this is a returning customer.
-    const customer = await stripe.customers.create();
-    const ephemeralKey = await stripe.ephemeralKeys.create(
-      {customer: customer.id},
-      {apiVersion: '2023-10-16'}
-    );
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: 1099,
-      currency: 'eur',
-      customer: customer.id,
-      // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
-      automatic_payment_methods: {
-        enabled: true,
-      },
-    });
-  
-    res.json({
-      paymentIntent: paymentIntent.client_secret,
-      ephemeralKey: ephemeralKey.secret,
-      customer: customer.id,
-      publishableKey: 'pk_test_51OCS11C7JotVMvT6zPo9OzRyGk9CHjxofPgUFKaeqHrqMVPRUQiL9m2BNgDqqnnG0XKHSdeoZLQ2jgqpwHc1jx1C00VxFy4qld'
-    });
-  });
+
 
 app.use(notFound);
 app.use(errorHandler);
