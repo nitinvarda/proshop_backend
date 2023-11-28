@@ -13,9 +13,6 @@ import dotenv from 'dotenv';
 import db from './config/db.js';
 import {notFound,errorHandler} from './middleware/errorMiddleware.js'
 import mongoose from 'mongoose';
-import Stripe from 'stripe';
-
-const stripe = new Stripe("sk_test_51OCS11C7JotVMvT6L376SPGGAfa0FotXnyt43iIPAoI27K1iBEBT850v72NTDrbBo8ExzAczCzXFgp1ca8zaQ41N008FSo82ob")
 
 
 
